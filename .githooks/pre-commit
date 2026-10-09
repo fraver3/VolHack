@@ -1,0 +1,13 @@
+#!/bin/sh
+# Block the supplied Kaggle data from entering Git, even if force-added.
+set -eu
+
+blocked=$(git diff --cached --name-only --diff-filter=ACMR | \
+  grep -E '(^|/)(dataset|sample_submission)\.csv$' || true)
+
+if [ -n "$blocked" ]; then
+  printf '%s\n' 'Commit blocked: supplied Kaggle data is local and read-only:' >&2
+  printf '%s\n' "$blocked" >&2
+  printf '%s\n' 'Remove it from the index with: git restore --staged <path>' >&2
+  exit 1
+fi

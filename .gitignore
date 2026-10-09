@@ -1,0 +1,35 @@
+# macOS and editor state
+.DS_Store
+.vscode/
+.idea/
+
+# Local Python environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Generated model artefacts and submissions
+outputs/
+artifacts/
+models/
+*.joblib
+*.pkl
+
+# Kaggle source assets: local, supplied, and immutable by project policy.
+# Never force-add these files.
+epfl-vol-hack/
+# This archive is already tracked in the repository's initial history. This rule
+# prevents it being re-added if it is later removed from tracking.
+epfl-vol-hack.zip
