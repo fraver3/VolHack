@@ -1,0 +1,50 @@
+{
+  "name": "blend_dense2_enriched_dense5_enriched_deeper",
+  "components": {
+    "dense2_enriched": 0.5,
+    "dense5_enriched_deeper": 0.5
+  },
+  "losses": [
+    0.4779819939842757,
+    0.47292928746946367,
+    0.46722193715407967
+  ],
+  "configs": {
+    "dense2_enriched": [
+      "enriched",
+      2,
+      15,
+      500,
+      750,
+      30.0
+    ],
+    "dense5_enriched_deeper": [
+      "enriched",
+      5,
+      31,
+      350,
+      500,
+      20.0
+    ]
+  },
+  "calibration": {
+    "slope": 1.0,
+    "intercept": 0.0
+  },
+  "forward_calibration": [
+    {
+      "fold": 1,
+      "raw": 0.47292928746946367,
+      "platt": 0.4729999780150281
+    },
+    {
+      "fold": 2,
+      "raw": 0.46722193715407967,
+      "platt": 0.4672086414405186
+    }
+  ],
+  "pooled_selection_log_loss": 0.47271854033290484,
+  "clipping_epsilon": 1e-06,
+  "random_seed": 42,
+  "test_boundary_fraction": 0.85
+}

@@ -16,7 +16,43 @@ Use this file as the shared hypothesis backlog. Add your initials, date, and lin
 
 ## Decision log
 
+### 2026-10-09 — Leo — EXP-003 initial hypotheses
+
+- Denser non-overlapping labels may reduce the variance caused by training on
+  only about 9,700 of the available historical outcomes.
+- Return volatility is persistent despite weak linear return autocorrelation.
+  Normalize visible momentum by local volatility and test focused volatility
+  context separately from the broad context ablation rejected in EXP-002.
+- Use multiple chronological selection periods and conservative calibration;
+  reserve the late-period check until the configuration is fixed.
+
+### 2026-10-09 — Leo — EXP-003 selection decisions
+
+- **Accepted:** dense training windows and normalized momentum. Chronological
+  selection losses improve in all three periods; overlapping training labels
+  are allowed within a split, while evaluation labels remain non-overlapping.
+- **Accepted:** focused legal context and robust volatility statistics. The
+  previous context rejection applied to the small EXP-002 training set. With
+  dense training, enriched context reaches 0.472719 pooled selection loss in a
+  fixed 50/50 blend of two-minute and five-minute models.
+- **Rejected:** additional Platt calibration for this blend. Forward checks
+  did not consistently improve log loss.
+- **Accepted:** audit context completeness against real submission cases.
+  The selected blend also beats the sparse baseline on the matched subset,
+  although that subset is small and has higher absolute loss.
+- **Open:** independently establish whether `ret` uses additive/logarithmic or
+  simple-return semantics. Existing additive labels and compounded labels
+  disagree in only 0.0716% of eligible windows; preserve the established
+  convention for this final search rather than silently changing the target.
+
 | Date | Owner | Decision | Reason |
 | --- | --- | --- | --- |
 | 2026-10-09 | Leo | Keep Kaggle source files local and read-only; version code, documentation, and small metadata only. | Prevent large data from polluting Git and preserve the supplied ground truth inputs. |
 | 2026-10-09 | Leo | Version small, validated CSV submissions in `outputs/submissions/`; keep models, caches, predictions, and supplied data local. | Submission CSVs are compact reviewable competition artefacts, while other generated assets are not. |
+
+### 2026-10-09 — Leo — EXP-003 final decision
+
+**Accepted:** use `exp003_final_submission.csv` as the recommended final submission.
+The fixed blend scored 0.468722 on the final chronological period,
+versus 0.485108 for the rerun sparse baseline. The model
+was selected before this check and then fitted on all eligible history.
