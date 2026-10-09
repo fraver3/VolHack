@@ -1,6 +1,6 @@
 # Experiment register
 
-Every row should point to the exact code/configuration that produced the result. Never commit generated predictions, models, or large intermediate files; save their local path and checksum here if needed.
+Every row should point to the exact code/configuration that produced the result. Never commit generated predictions, models, or large intermediate files; commit small, schema-validated final CSV submissions under `outputs/submissions/` and record their checksum here.
 
 | ID | Date | Owner | Branch | Hypothesis | Validation / embargo | Features & model | Log loss | Status | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

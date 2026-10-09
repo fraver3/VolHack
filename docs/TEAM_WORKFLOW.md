@@ -29,7 +29,7 @@ If `leo` has not yet been published, use `master` as the pull source until its f
 
 ## Data and artefacts
 
-The two supplied CSV files are immutable local inputs. Do not commit them, copies of them, trained models, cached features, or generated submissions. Use `outputs/` for all derived files. The existing zip archive is inherited from the initial repository history; leave it untouched and do not add replacement archives.
+The two supplied CSV files are immutable local inputs. Do not commit them, copies of them, trained models, cached features, or intermediate predictions. Use `outputs/` for derived files. Small, schema-validated final submission CSVs directly under `outputs/submissions/` are versioned and should be committed with their experiment record and checksum. The existing zip archive is inherited from the initial repository history; leave it untouched and do not add replacement archives.
 
 The local pre-commit hook is enabled with:
 
@@ -44,5 +44,5 @@ It blocks attempts to stage `dataset.csv` or `sample_submission.csv`. The `.giti
 1. Rebase or merge the latest `leo` deliberately and resolve conflicts locally.
 2. Run `ruff check .` and `pytest` when code changes.
 3. Ensure the experiment and idea logs describe the result.
-4. Confirm `git diff --cached --name-only` excludes protected data and `outputs/`.
+4. Confirm `git diff --cached --name-only` excludes protected data, models, caches, and intermediate predictions; include only a validated final CSV from `outputs/submissions/` when applicable.
 5. Open a review or hand off the branch with the experiment ID and validation log loss.

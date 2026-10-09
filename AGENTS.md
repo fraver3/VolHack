@@ -19,7 +19,7 @@ Treat this section as the source of truth when planning features, data splits, c
 
 - `epfl-vol-hack/dataset.csv` and `epfl-vol-hack/sample_submission.csv` are supplied local assets. Treat both as **read-only**.
 - Never edit, rename, delete, stage, force-add, commit, upload, or regenerate either file. Do not write beside them.
-- Read them only through an explicit path. Generated files belong under `outputs/`, which is ignored.
+- Read them only through an explicit path. Generated artefacts belong under `outputs/`: models, cached features, and intermediate predictions stay ignored, while small validated CSVs in `outputs/submissions/` are versioned.
 - The pre-commit hook rejects these data files. Keep it enabled with `git config core.hooksPath .githooks`.
 
 ## Working conventions
@@ -38,4 +38,4 @@ Treat this section as the source of truth when planning features, data splits, c
 - Create a topic branch only when a task needs isolation, review, or concurrent work; merge or hand off the result back to `leo` deliberately.
 - Work on a short-lived `feat/<name>-<scope>`, `fix/<name>-<scope>`, or `exp/<name>-<hypothesis>` branch.
 - `leo` is the current integration branch. Rebase or merge deliberately; never rewrite shared history.
-- Make focused commits that contain code and its experiment-log update, but never generated outputs or data.
+- Make focused commits that contain code and its experiment-log update. Include a small validated `outputs/submissions/*.csv` when it is the intended Kaggle submission; never commit supplied data, models, caches, or intermediate predictions.

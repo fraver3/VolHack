@@ -21,7 +21,11 @@ htmlcov/
 !.env.example
 
 # Generated model artefacts and submissions
-outputs/
+# Keep only small, validated CSV submissions under version control.
+outputs/*
+!outputs/submissions/
+outputs/submissions/*
+!outputs/submissions/*.csv
 artifacts/
 models/
 *.joblib

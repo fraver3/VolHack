@@ -13,7 +13,7 @@ docs/TEAM_WORKFLOW.md  Branches, ownership, review, and handoff
 notebooks/             Exploratory analysis (keep outputs small)
 scripts/               Reproducible command-line entry points
 src/volhack/           Reusable code
-outputs/               Local predictions/models/submissions (ignored)
+outputs/               Ignored predictions/models; validated submission CSVs are versioned
 ```
 
 ## Data contract
@@ -23,7 +23,7 @@ The supplied files stay local at their original paths:
 - `epfl-vol-hack/dataset.csv` — minute returns
 - `epfl-vol-hack/sample_submission.csv` — required prediction IDs and schema
 
-They are intentionally ignored, permission-locked read-only, and rejected by the pre-commit hook. They must never be modified or committed. Keep all derived data and submissions in `outputs/`.
+They are intentionally ignored, permission-locked read-only, and rejected by the pre-commit hook. They must never be modified or committed. Keep derived artefacts in `outputs/`; models and intermediate predictions remain local, while small validated CSVs in `outputs/submissions/` are versioned.
 
 ## Local setup
 
@@ -40,4 +40,4 @@ Work on `leo` by default. Create a topic branch such as `git switch -c exp/leo-r
 
 ## Submission guardrails
 
-Each generated `submission.csv` must contain exactly the `ID` values from the supplied sample file, once each, with a finite `p_up` in `[0, 1]`. Generate it under `outputs/submissions/`; it is not versioned.
+Each generated `submission.csv` must contain exactly the `ID` values from the supplied sample file, once each, with a finite `p_up` in `[0, 1]`. Generate it under `outputs/submissions/`, validate the schema locally, and commit the small final CSV with its experiment record.

@@ -16,6 +16,7 @@ Keep this catalog current when the repository layout changes. It is deliberately
 | `epfl-vol-hack/dataset.csv` | Supplied return history | **Ignored and read-only** | Never modify, stage, or commit. |
 | `epfl-vol-hack/sample_submission.csv` | Supplied IDs and schema | **Ignored and read-only** | Never modify, stage, or commit. |
 | `epfl-vol-hack.zip` | Kaggle archive inherited from the initial repository history | Already versioned; leave untouched | Do not replace, recommit, or add copies without a team decision. |
-| `outputs/` | Predictions, models, cached features, submissions | Ignored | Generated locally only. |
+| `outputs/predictions/`, `outputs/models/`, `outputs/cache/` | Predictions, models, and cached features | Ignored | Generated locally only. |
+| `outputs/submissions/*.csv` | Small, schema-validated Kaggle submissions | Versioned | Submission author; commit with the matching experiment record and checksum. |
 
-Before committing, run `git diff --cached --name-only` and compare the paths with this table. If an ignored asset ever appears as staged, stop and remove it from the index rather than committing it.
+Before committing, run `git diff --cached --name-only` and compare the paths with this table. If supplied data, a model, a cache, or an intermediate prediction appears as staged, stop and remove it from the index rather than committing it.

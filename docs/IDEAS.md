@@ -16,3 +16,4 @@ Use this file as the shared hypothesis backlog. Add your initials, date, and lin
 | Date | Owner | Decision | Reason |
 | --- | --- | --- | --- |
 | 2026-10-09 | Leo | Keep Kaggle source files local and read-only; version code, documentation, and small metadata only. | Prevent large data from polluting Git and preserve the supplied ground truth inputs. |
+| 2026-10-09 | Leo | Version small, validated CSV submissions in `outputs/submissions/`; keep models, caches, predictions, and supplied data local. | Submission CSVs are compact reviewable competition artefacts, while other generated assets are not. |
