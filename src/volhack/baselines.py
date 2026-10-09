@@ -46,6 +46,36 @@ def make_feature_matrix(returns: np.ndarray, target_rows: np.ndarray) -> np.ndar
     )
 
 
+def make_exp002_visible_features(returns: np.ndarray, target_rows: np.ndarray) -> np.ndarray:
+    """Build EXP-002's raw visible-return and six summary features.
+
+    This intentionally excludes the broader pre-/post-gap context tested in
+    EXP-002, whose ablation did not improve validation performance.
+    """
+    returns = np.asarray(returns, dtype=float)
+    target_rows = np.asarray(target_rows, dtype=int)
+    visible_rows = target_rows[:, None] - VISIBLE_OFFSETS
+
+    if visible_rows.min() < 0 or visible_rows.max() >= len(returns):
+        raise ValueError("At least one target does not have a complete visible window.")
+
+    visible_returns = returns[visible_rows]
+    if not np.isfinite(visible_returns).all():
+        raise ValueError("At least one target has a missing return in its visible window.")
+
+    return np.column_stack(
+        [
+            visible_returns,
+            visible_returns.sum(axis=1),
+            visible_returns.mean(axis=1),
+            visible_returns.std(axis=1),
+            np.abs(visible_returns).sum(axis=1),
+            (visible_returns > 0).mean(axis=1),
+            np.ones(len(visible_returns)),
+        ]
+    )
+
+
 def make_historical_cases(
     returns: pd.DataFrame, case_spacing_minutes: int = 300
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
@@ -65,9 +95,7 @@ def make_historical_cases(
     target_rows = candidate_rows[complete_windows]
 
     return_prefix = np.r_[0.0, np.cumsum(np.nan_to_num(ret, nan=0.0))]
-    thirty_minute_moves = (
-        return_prefix[target_rows + 1] - return_prefix[target_rows - 29]
-    )
+    thirty_minute_moves = return_prefix[target_rows + 1] - return_prefix[target_rows - 29]
     non_ties = thirty_minute_moves != 0
     target_rows = target_rows[non_ties]
     labels = (thirty_minute_moves[non_ties] > 0).astype(int)
@@ -83,6 +111,19 @@ def make_best_hgb(random_state: int = 42) -> HistGradientBoostingClassifier:
         max_leaf_nodes=7,
         min_samples_leaf=50,
         l2_regularization=1.0,
+        early_stopping=False,
+        random_state=random_state,
+    )
+
+
+def make_exp002_visible_hgb(random_state: int = 42) -> HistGradientBoostingClassifier:
+    """Return EXP-002's validation-selected visible-only HGB configuration."""
+    return HistGradientBoostingClassifier(
+        max_iter=200,
+        learning_rate=0.04,
+        max_leaf_nodes=15,
+        min_samples_leaf=80,
+        l2_regularization=3.0,
         early_stopping=False,
         random_state=random_state,
     )

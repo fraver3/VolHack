@@ -10,6 +10,9 @@ Use this file as the shared hypothesis backlog. Add your initials, date, and lin
 | Open | Team | Calibrate model scores on an untouched chronological validation slice because the leaderboard uses log loss. | Evaluate clipping and calibration separately from raw discrimination. |
 | Accepted | Leo | Compare simple momentum/dispersion features with a constant prior before adding long-history or complex features. | EXP-001's held-out chronological test log loss is 0.503081 for shallow boosting, versus 0.686171 for the prior; retain this benchmark before extending features. |
 | Accepted | Leo | Treat each submission target as a fixed position inside its corresponding missing-data window when building features and validation. | Initial audit confirms all 17,517 targets are 14 minutes after the start of a 106-minute missing-return run. Keep this alignment explicit and do not infer returns through the gap. |
+| Accepted | Leo | Test several low-cost estimators with identical feature availability and a purged chronological split; favor consistency across validation and final test over a single favorable split. | EXP-002 compared linear, bagged trees, boosted trees, a feature ablation, and a blend; retain the test result rather than selecting on validation alone. |
+| Rejected | Leo | Add broad legal pre-gap and post-gap return summaries to the 15 visible returns. | EXP-002: medium full-context HGB validation loss was 0.474095, versus 0.472710 for the otherwise identical visible-only model; do not extend this context feature set without a new mechanism. |
+| Accepted | Leo | Keep EXP-001's shallow HGB as the current submission benchmark. | EXP-002's selected medium visible-only HGB reached 0.472710 on validation but 0.511472 on test, worse than EXP-001's 0.503081. The faster linear, extra-trees, and blend variants also trailed on validation. |
 
 ## Decision log
 
