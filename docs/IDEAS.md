@@ -56,3 +56,32 @@ Use this file as the shared hypothesis backlog. Add your initials, date, and lin
 The fixed blend scored 0.468722 on the final chronological period,
 versus 0.485108 for the rerun sparse baseline. The model
 was selected before this check and then fitted on all eligible history.
+
+### 2026-10-09 — Leo — EXP-004 initial distribution hypotheses
+
+- Estimate `P(hidden_15_minute_move > -visible_move | legal observations)`
+  directly. A positive typical return with rare large negative shocks can have
+  nearly zero mean while producing materially more than 50% positive outcomes.
+- Signed quantiles, robust core location, and positive/negative jump frequencies
+  may identify distribution state more reliably than variance and skew moments.
+- Test a conditional distribution estimator and a classifier with explicit
+  shape features; combine only if chronological validation supports it.
+
+### 2026-10-09 — Leo — EXP-004 selection decisions
+
+- **Accepted:** model signed central mass and negative jumps separately. Returns
+  have positive median and near-zero mean because negative shocks are larger.
+- **Accepted:** add a monotone conditional survival estimator as a 10% component,
+  together with 25% signed-tail classifier and 65% EXP-003. The fixed mixture
+  improves all three selection folds and the context-matched subset.
+- **Rejected:** iid local empirical convolution as a final probability model.
+  Chronological losses around 0.52 trail the learned conditional models.
+- **Accepted:** the fixed blend also improves the late-period check; the gain
+  remains modest. Retain the EXP-003 submission for direct comparison.
+
+### 2026-10-09 — Leo — EXP-004 final decision
+
+**Accepted:** recommend `exp004_distribution_submission.csv`. The fixed blend
+reduced late-period log loss from 0.468722292 to
+0.468398652. The gain is small and consistent with selection results;
+preserve EXP-003 for comparison.

@@ -1,0 +1,46 @@
+{
+  "weights": {
+    "exp003": 0.65,
+    "shape_31": 0.25,
+    "cdf_continuous": 0.1
+  },
+  "pooled": 0.47239136954862077,
+  "folds": [
+    0.47754808307418345,
+    0.47249726186112556,
+    0.4671077376849485
+  ],
+  "matched": 0.49706315212379876,
+  "configs": {
+    "shape_31": {
+      "kind": "shape",
+      "leaves": 31,
+      "iterations": 400,
+      "min_leaf": 500,
+      "l2": 20.0
+    },
+    "cdf_continuous": {
+      "kind": "cdf",
+      "leaves": 31,
+      "iterations": 500,
+      "min_leaf": 500,
+      "l2": 30.0,
+      "continuous_thresholds": true
+    }
+  },
+  "baseline": {
+    "weights": {
+      "exp003": 1.0
+    },
+    "pooled": 0.47271854033290484,
+    "folds": [
+      0.4779819939842757,
+      0.47292928746946367,
+      0.46722193715407967
+    ],
+    "matched": 0.49752600871281355
+  },
+  "clip": 1e-06,
+  "seed": 42,
+  "rule": "Minimize pooled loss subject to improvement in all folds and no worsening on context-matched cases."
+}
